@@ -1,6 +1,11 @@
-from flask import render_template
+from flask import abort, render_template, request
 from app.main import bp
+import requests
+import logging
 
-@bp.route('/')
+
+
+
+@bp.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
