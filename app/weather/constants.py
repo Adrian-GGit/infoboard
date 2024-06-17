@@ -11,6 +11,7 @@ LATITUDE = 'latitude'
 LONGITUDE = 'longitude'
 
 # weather forecast constants
+TIME = 'time'
 FORECASTS = 'forecasts'
 SUNRISE = 'sunrise'
 SUNSET = 'sunset'

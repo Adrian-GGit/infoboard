@@ -1,11 +1,7 @@
-from flask import abort, render_template, request
 from app.main import bp
-import requests
-import logging
-
-
+from app.weather.routes import get_weather
 
 
 @bp.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return get_weather()

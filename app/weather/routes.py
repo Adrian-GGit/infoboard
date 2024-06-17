@@ -1,5 +1,5 @@
 import os
-from flask import abort, jsonify, request
+from flask import abort, jsonify, render_template, request
 import requests
 from app.main import bp
 import requests
@@ -16,8 +16,8 @@ logger = logging.getLogger(__name__)
 # Please choose the proper subscription http://openweathermap.org/price"
 # }
 
-FORECAST_API = 'https://api.openweathermap.org/data/2.5/forecast?lat={}&lon={}&appid={}'
-CURRENT_API = 'https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}'
+FORECAST_API = 'https://api.openweathermap.org/data/2.5/forecast?lat={}&lon={}&appid={}&units=metric'
+CURRENT_API = 'https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}&units=metric'
 WEATHER_ICON_URL = 'https://openweathermap.org/img/w/{}.png'
 API_KEY = os.getenv(constants.API_KEY_ENV_VAR, None)
 CITY = 'Karlsruhe'
@@ -51,16 +51,18 @@ def get_data(url, city, url_params=None):
         ),
         constants.FORECASTS: [],
     }
-    for forecast in weather_data.get('list'):
+    for i, forecast in enumerate(weather_data.get('list')):
+        if i == 8: break
         specific_weather_data.get(constants.FORECASTS).append({
-            constants.TEMP_MIN: forecast.get('main').get('temp_min'),
-            constants.TEMP_MAX: forecast.get('main').get('temp_max'),
-            constants.WEATHER_FORECAST_ID: forecast.get('weather')[0].get('id'),
-            constants.WEATHER_FORECAST_DESCRIPTION: forecast.get('weather')[0].get('description'),
+            constants.TIME: datetime.datetime.strptime(forecast.get('dt_txt'), '%Y-%m-%d %H:%M:%S').strftime('%H:%M'),
+            # constants.TEMP_MIN: int(forecast.get('main').get('temp_min')),
+            # constants.TEMP_MAX: int(forecast.get('main').get('temp_max')),
+            # constants.WEATHER_FORECAST_ID: forecast.get('weather')[0].get('id'),
+            # constants.WEATHER_FORECAST_DESCRIPTION: forecast.get('weather')[0].get('description'),
             constants.WEATHER_FORECAST_ICON: forecast.get('weather')[0].get('icon'),
-            constants.TEMP_FEELS_LIKE: forecast.get('main').get('feels_like'),
-            constants.PROP_PRECIPITATION: forecast.get('pop'),
-            constants.TEMP: forecast.get('main').get('temp'),
+            # constants.TEMP_FEELS_LIKE: int(forecast.get('main').get('feels_like')),
+            constants.PROP_PRECIPITATION: int(float(forecast.get('pop')) * 100),
+            constants.TEMP: int(forecast.get('main').get('temp')),
         })
 
     return specific_weather_data
@@ -91,4 +93,5 @@ def get_weather():
     if city is None:
         abort(400, constants.CITY_MISSING)
 
-    return get_data(FORECAST_API, city)
+    forecast_data = get_data(FORECAST_API, city)
+    return render_template('weather.html', weather_data=forecast_data)

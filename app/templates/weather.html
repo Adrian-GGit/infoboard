@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/weather.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="sunrise-sunset">
+        <div>
+            <img id="sunrise" src="{{ url_for('static', filename='img/sunrise.png') }}" alt="Sunrise">
+            <p>{{ weather_data.sunrise }}</p>
+        </div>
+        <div>
+            <img id="sunset" src="{{ url_for('static', filename='img/sunset.png') }}" alt="Sunrise">
+            <p>{{ weather_data.sunset }}</p>
+        </div>
+    </div>
+
+    <div class="forecast-details">
+        {% for forecast in weather_data.forecasts %}
+        <div class="forecast-item">
+            {% if loop.first %}
+                <img class="first-icon" src="http://openweathermap.org/img/wn/{{ forecast.wf_icon }}.png" alt="Weather Icon">
+            {% else %}
+                <img src="http://openweathermap.org/img/wn/{{ forecast.wf_icon }}.png" alt="Weather Icon">
+            {% endif %}
+            <div>
+                <p>{{ forecast.time }}</p>
+                <p>{{ forecast.temp }} C°</p>
+                <p>{{ forecast.prop_precip }}%</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
