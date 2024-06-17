@@ -26,7 +26,7 @@ CITY = 'Karlsruhe'
 def timestamp_to_datetime(timestamp, timezone):
     utc_dt = datetime.datetime.utcfromtimestamp(timestamp)
     timezone_offset = datetime.timedelta(seconds=timezone)
-    return (utc_dt + timezone_offset).strftime('%H:%M:%S')
+    return (utc_dt + timezone_offset).strftime('%H:%M')
 
 
 def get_data(url, city, url_params=None):
@@ -54,7 +54,7 @@ def get_data(url, city, url_params=None):
     for i, forecast in enumerate(weather_data.get('list')):
         if i == 8: break
         specific_weather_data.get(constants.FORECASTS).append({
-            constants.TIME: datetime.datetime.strptime(forecast.get('dt_txt'), '%Y-%m-%d %H:%M:%S').strftime('%H:%M'),
+            constants.TIME: datetime.datetime.strptime(forecast.get('dt_txt'), '%Y-%m-%d %H:%M:%S').strftime('%-H'),
             # constants.TEMP_MIN: int(forecast.get('main').get('temp_min')),
             # constants.TEMP_MAX: int(forecast.get('main').get('temp_max')),
             # constants.WEATHER_FORECAST_ID: forecast.get('weather')[0].get('id'),

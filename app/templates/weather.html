@@ -10,11 +10,11 @@
 <body>
     <div class="sunrise-sunset">
         <div>
-            <img id="sunrise" src="{{ url_for('static', filename='img/sunrise.png') }}" alt="Sunrise">
+            <img id="sunrise" src="{{ url_for('static', filename='img/sunrise.png') }}" class="sun-icon">
             <p>{{ weather_data.sunrise }}</p>
         </div>
         <div>
-            <img id="sunset" src="{{ url_for('static', filename='img/sunset.png') }}" alt="Sunrise">
+            <img id="sunset" src="{{ url_for('static', filename='img/sunset.png') }}" class="sun-icon">
             <p>{{ weather_data.sunset }}</p>
         </div>
     </div>
@@ -22,16 +22,18 @@
     <div class="forecast-details">
         {% for forecast in weather_data.forecasts %}
         <div class="forecast-item">
-            {% if loop.first %}
-                <img class="first-icon" src="http://openweathermap.org/img/wn/{{ forecast.wf_icon }}.png" alt="Weather Icon">
+            <p>{{ forecast.time }} Uhr</p>
+            <p>{{ forecast.temp }}°</p>
+            <img src="http://openweathermap.org/img/wn/{{ forecast.wf_icon }}.png" class="weather-icon">
+            {% if forecast.prop_precip <= 25 %}
+                <p><img id="noraint" src="{{ url_for('static', filename='img/no-rain.png') }}" class="rain-icon">    {{ forecast.prop_precip }}%</p>
+            {% elif forecast.prop_precip > 25 and forecast.prop_precip <= 50 %}
+                <p><img id="wet" src="{{ url_for('static', filename='img/drop-of-liquid.png') }}" class="rain-icon">    {{ forecast.prop_precip }}%</p>
+            {% elif forecast.prop_precip > 50 and forecast.prop_precip <= 75 %}
+                <p><img id="rainy" src="{{ url_for('static', filename='img/wet.png') }}" class="rain-icon">    {{ forecast.prop_precip }}%</p>
             {% else %}
-                <img src="http://openweathermap.org/img/wn/{{ forecast.wf_icon }}.png" alt="Weather Icon">
+                <p><img id="umbrella" src="{{ url_for('static', filename='img/umbrella.png') }}" class="rain-icon">    {{ forecast.prop_precip }}%</p>
             {% endif %}
-            <div>
-                <p>{{ forecast.time }}</p>
-                <p>{{ forecast.temp }} C°</p>
-                <p>{{ forecast.prop_precip }}%</p>
-            </div>
         </div>
         {% endfor %}
     </div>
