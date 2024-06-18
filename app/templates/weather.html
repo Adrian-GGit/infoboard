@@ -9,14 +9,15 @@
     <title>Weather Forecast</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/weather.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
     <script>
         const currentWeatherDescription = "{{ current_data.wf_description }}";
-    </script>
+        </script>
     <script src="{{ url_for('static', filename='js/weather.js') }}" defer></script>
 </head>
 <body>
     <div class="sunrise-sunset">
-        <div>
+        <div class="sun-info">
             <img id="sunrise" src="{{ url_for('static', filename='img/weather/sunrise.png') }}" class="sun-icon">
             <p>{{ weather_data.sunrise }}</p>
         </div>
@@ -25,7 +26,7 @@
             <p>{{ current_data.temp }}°</p>
             <img src="http://openweathermap.org/img/wn/{{ current_data.wf_icon }}.png" class="current-weather-icon">
         </div>
-        <div>
+        <div class="sun-info">
             <img id="sunset" src="{{ url_for('static', filename='img/weather/sunset.png') }}" class="sun-icon">
             <p>{{ weather_data.sunset }}</p>
         </div>

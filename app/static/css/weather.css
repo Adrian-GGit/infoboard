@@ -1,6 +1,26 @@
+@keyframes fade {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes top-slide {
+    0%   { transform: translateY(-100%); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes bottom-slide {
+    0%   { transform: translateY(200%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+
 html {
+    animation-name: fade;
+    animation-duration: 3s; 
+    animation-fill-mode: forwards;
     font-family: Arial, sans-serif;
     height: 100%;
+    background-color: black;
     background-position: center;
     background-repeat: no-repeat;
     -webkit-background-size: cover;
@@ -16,6 +36,8 @@ html {
     margin: 5px;
     border-radius: 8px;
     box-shadow: 10px 10px 10px rgba(38, 38, 38, 0.3);
+    animation: bottom-slide 0.5s forwards;
+    opacity: 0;
 }
 
 .forecast-details {
@@ -69,6 +91,12 @@ html {
 .sun-icon {
     max-width: 50%;
     height: auto;
+}
+
+.sun-info {
+    animation-name: top-slide;
+    animation-duration: 3s; 
+    animation-fill-mode: forwards; 
 }
 
 .rain-icon {
