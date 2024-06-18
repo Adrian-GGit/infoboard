@@ -1,4 +1,6 @@
-- dynamic updates with JS every 30min
-- add mappings for description of https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
+- dynamic updates with JS every 5min but without reloading the whole page
+    => just update the elements itself
+    => add more endpoints for querying
+- add more jpgs for weather mappings
 - add unique background for each forecast
 - text color adaptive to background for better readability

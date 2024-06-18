@@ -44,7 +44,7 @@ def get_current_data(url, city):
         constants.TIME: timestamp_to_datetime(
             weather_data.get('dt'), time_zone
         ),
-        constants.WEATHER_FORECAST_DESCRIPTION: weather_data.get('weather')[0].get('description'),
+        constants.WEATHER_FORECAST_DESCRIPTION: constants.WEATHER_DESCRPITION_MAPPING.get(weather_data.get('weather')[0].get('description'), ''),
         constants.WEATHER_FORECAST_ICON: weather_data.get('weather')[0].get('icon'),
         constants.TEMP: int(weather_data.get('main').get('temp')),
     }
@@ -66,7 +66,7 @@ def get_forecast_data(url, city):
         if i == 8: break
         specific_weather_data.get(constants.FORECASTS).append({
             constants.TIME: datetime.datetime.strptime(forecast.get('dt_txt'), '%Y-%m-%d %H:%M:%S').strftime('%-H'),
-            constants.WEATHER_FORECAST_DESCRIPTION: forecast.get('weather')[0].get('description'),
+            constants.WEATHER_FORECAST_DESCRIPTION: constants.WEATHER_DESCRPITION_MAPPING.get(forecast.get('weather')[0].get('description'), ''),
             constants.WEATHER_FORECAST_ICON: forecast.get('weather')[0].get('icon'),
             constants.PROP_PRECIPITATION: int(float(forecast.get('pop')) * 100),
             constants.TEMP: int(forecast.get('main').get('temp')),
