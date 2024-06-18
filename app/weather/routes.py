@@ -1,6 +1,5 @@
 import os
 from flask import abort, jsonify, render_template, request
-import pytz
 import requests
 from app.main import bp
 import requests
@@ -11,9 +10,6 @@ import datetime
 
 logger = logging.getLogger(__name__)
 
-# TODO: add mappings for description of https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
-# TODO: add unique background for each forecast
-# TODO: text color adaptive to background for better readability
 
 FORECAST_API = 'https://api.openweathermap.org/data/2.5/forecast?lat={}&lon={}&appid={}&units=metric'
 CURRENT_API = 'https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}&units=metric'
