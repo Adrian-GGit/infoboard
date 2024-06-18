@@ -1,19 +1,21 @@
-/* styles.css */
-
-html, body {
+html {
     font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 20px;
-    background-color: #b7d3f5;
-    color: #262626;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .forecast-item {
-    margin-bottom: 20px;
-    background-color: #cfcece;
+    margin-bottom: 15px;
+    background-color: rgb(183, 205, 255, 0.6);
     padding: 10px;
+    margin: 5px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 10px 10px 10px rgba(38, 38, 38, 0.3);
 }
 
 .forecast-details {
@@ -23,6 +25,20 @@ html, body {
     text-align: center;
     font-size: 2.5em;
 }
+
+.current-weather-item {
+    margin-bottom: 20px;
+    background-color: rgb(183, 205, 255, 0.6);
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 8px;
+    box-shadow: 10px 10px 10px rgba(38, 38, 38, 0.3);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1em;
+}
+
 
 .icon {
     margin-right: 10px;
@@ -40,8 +56,13 @@ html, body {
     text-align: center;
 }
 
+.current-weather-icon {
+    width: 80%;
+    height: auto;
+}
+
 .weather-icon {
-    width: 60%;
+    width: 40%;
     height: auto;
 }
 

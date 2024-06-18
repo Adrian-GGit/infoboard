@@ -1,5 +1,6 @@
 import os
 from flask import abort, jsonify, render_template, request
+import pytz
 import requests
 from app.main import bp
 import requests
@@ -10,11 +11,9 @@ import datetime
 
 logger = logging.getLogger(__name__)
 
-
-# { "cod": 429,
-# "message": "Your account is temporary blocked due to exceeding of requests limitation of your subscription type. 
-# Please choose the proper subscription http://openweathermap.org/price"
-# }
+# TODO: add mappings for description of https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
+# TODO: add unique background for each forecast
+# TODO: text color adaptive to background for better readability
 
 FORECAST_API = 'https://api.openweathermap.org/data/2.5/forecast?lat={}&lon={}&appid={}&units=metric'
 CURRENT_API = 'https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}&units=metric'
@@ -26,10 +25,9 @@ CITY = 'Karlsruhe'
 def timestamp_to_datetime(timestamp, timezone):
     utc_dt = datetime.datetime.utcfromtimestamp(timestamp)
     timezone_offset = datetime.timedelta(seconds=timezone)
-    return (utc_dt + timezone_offset).strftime('%H:%M')
+    return (utc_dt + timezone_offset).strftime('%-H:%M')
 
-
-def get_data(url, city, url_params=None):
+def get_data(url, city):
     if API_KEY is None:
         abort(400, constants.API_KEY_MISSING)
 
@@ -40,8 +38,25 @@ def get_data(url, city, url_params=None):
     url = url.format(lat, long, API_KEY)
     weather_data = requests.get(url).json()
     logging.debug(f'[*] Got weather data for city {city}: {weather_data}')
-    time_zone = int(weather_data.get('city').get('timezone'))
+    return weather_data
 
+
+def get_current_data(url, city):
+    weather_data = get_data(url, city)
+    time_zone = int(weather_data.get('timezone'))
+    return {
+        constants.TIME: timestamp_to_datetime(
+            weather_data.get('dt'), time_zone
+        ),
+        constants.WEATHER_FORECAST_DESCRIPTION: weather_data.get('weather')[0].get('description'),
+        constants.WEATHER_FORECAST_ICON: weather_data.get('weather')[0].get('icon'),
+        constants.TEMP: int(weather_data.get('main').get('temp')),
+    }
+
+
+def get_forecast_data(url, city):
+    weather_data = get_data(url, city)
+    time_zone = int(weather_data.get('city').get('timezone'))
     specific_weather_data = {
         constants.SUNRISE: timestamp_to_datetime(
             weather_data.get('city').get('sunrise'), time_zone
@@ -55,12 +70,8 @@ def get_data(url, city, url_params=None):
         if i == 8: break
         specific_weather_data.get(constants.FORECASTS).append({
             constants.TIME: datetime.datetime.strptime(forecast.get('dt_txt'), '%Y-%m-%d %H:%M:%S').strftime('%-H'),
-            # constants.TEMP_MIN: int(forecast.get('main').get('temp_min')),
-            # constants.TEMP_MAX: int(forecast.get('main').get('temp_max')),
-            # constants.WEATHER_FORECAST_ID: forecast.get('weather')[0].get('id'),
-            # constants.WEATHER_FORECAST_DESCRIPTION: forecast.get('weather')[0].get('description'),
+            constants.WEATHER_FORECAST_DESCRIPTION: forecast.get('weather')[0].get('description'),
             constants.WEATHER_FORECAST_ICON: forecast.get('weather')[0].get('icon'),
-            # constants.TEMP_FEELS_LIKE: int(forecast.get('main').get('feels_like')),
             constants.PROP_PRECIPITATION: int(float(forecast.get('pop')) * 100),
             constants.TEMP: int(forecast.get('main').get('temp')),
         })
@@ -93,5 +104,7 @@ def get_weather():
     if city is None:
         abort(400, constants.CITY_MISSING)
 
-    forecast_data = get_data(FORECAST_API, city)
-    return render_template('weather.html', weather_data=forecast_data)
+    current_data = get_current_data(CURRENT_API, city)
+    print(current_data)
+    forecast_data = get_forecast_data(FORECAST_API, city)
+    return render_template('weather.html', weather_data=forecast_data, current_data=current_data)
