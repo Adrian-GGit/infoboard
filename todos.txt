@@ -1,3 +1,6 @@
+- instead of text color with contrast use background image of weather for each box individually having one nice background color
+    => change background color dynamically to the current weather with fitting text color having the highest contrast
+- remove scroll bar
 - dynamic updates with JS every 5min but without reloading the whole page (e.g. with apscheduler)
     => just update the elements itself
     => add more endpoints for querying
