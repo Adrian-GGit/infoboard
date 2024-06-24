@@ -13,6 +13,11 @@
     100% { transform: translateY(0); opacity: 1; }
 }
 
+body {
+    cursor: none;
+    overflow: hidden;
+}
+
 
 html {
     animation-name: fade;
