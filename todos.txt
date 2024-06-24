@@ -12,6 +12,7 @@
     - cap
     - rain trousers + jacket
     - insect spray
+- setup wsgi with gunicorn
 
 
 
