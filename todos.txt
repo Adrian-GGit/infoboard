@@ -1,4 +1,4 @@
-
+- integrate vue.js for learning and better FE
 - instead of text color with contrast use background image of weather for each box individually having one nice background color
     => change background color dynamically to the current weather with fitting text color having the highest contrast
     => text color adaptive to background for better readability
