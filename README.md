@@ -1,8 +1,5 @@
-# raspi
-General overview for
-- weather info
-    - clothing recommendation
-- public tansit info
+# Infoboard
+This little project is a web app to visualize different information e.g. weather data.
 
 
 # Installation
@@ -15,14 +12,6 @@ Setup for frontend executing in root dir:
 ```
 npm install
 ```
-
-
-# Implementation
-Updates are made every 5 minutes. This means every
-- hour => 12 updates
-- day => 288 updates
-- week => 2016 updates
-- month => 8640 updates
 
 
 # Start
