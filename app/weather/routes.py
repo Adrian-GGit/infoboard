@@ -1,3 +1,4 @@
+import json
 from flask import abort, render_template, request
 from app.main import bp
 from app.weather import constants
@@ -22,4 +23,9 @@ def get_weather():
 
     current_data = get_current_data(CURRENT_API, city)
     forecast_data = get_forecast_data(FORECAST_API, city)
-    return render_template('weather/weather.html', weather_data=forecast_data, current_data=current_data)
+    return render_template(
+        'weather/weather.html',
+        weather_data=forecast_data,
+        current_data=current_data,
+        time_weather_data=json.dumps(forecast_data.get(constants.FORECASTS)),
+    )
