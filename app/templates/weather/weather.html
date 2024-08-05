@@ -10,65 +10,70 @@
     <div class="flex flex-wrap w-full lg:w-auto">
         <div class="w-full lg:w-1/2 flex rounded-lg bg-auto">
             <div class="rounded-lg py-6 pl-8 pr-32 w-full bg-blue-400 opacity-90 text-white">
-                <div>
-                    <h2 class="font-bold text-3xl leading-none pb-1">{{ current_data.day }}, {{ current_data.date }}
-                    </h2>
-                    <h3 class="leading-none pb-2 pl-1">{{ current_data.time }}</h3>
-                    <p class="flex align-center opacity-75">
-                        <svg class="w-4 inline mr-1" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
-                            viewBox="0 0 425.963 425.963" style="enable-background:new 0 0 425.963 425.963;"
-                            xml:space="preserve">
-                            <g>
+                <div class="flex items-center my-4 justify-center">
+                    <div class="flex flex-col items-center justify-center w-1/2">
+                        <h2 class="font-bold text-3xl leading-none pb-1">{{ current_data.day }}, {{ current_data.date }}
+                        </h2>
+                        <h3 class="leading-none pb-2 pl-1">{{ current_data.time }}</h3>
+                        <p class="flex align-center opacity-75">
+                            <svg class="w-4 inline mr-1" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                                viewBox="0 0 425.963 425.963" style="enable-background:new 0 0 425.963 425.963;"
+                                xml:space="preserve">
                                 <g>
-                                    <path
-                                        d="M213.285,0h-0.608C139.114,0,79.268,59.826,79.268,133.361c0,48.202,21.952,111.817,65.246,189.081
-                                            c32.098,57.281,64.646,101.152,64.972,101.588c0.906,1.217,2.334,1.934,3.847,1.934c0.043,0,0.087,0,0.13-0.002
-                                            c1.561-0.043,3.002-0.842,3.868-2.143c0.321-0.486,32.637-49.287,64.517-108.976c43.03-80.563,64.848-141.624,64.848-181.482
-                                            C346.693,59.825,286.846,0,213.285,0z M274.865,136.62c0,34.124-27.761,61.884-61.885,61.884
-                                            c-34.123,0-61.884-27.761-61.884-61.884s27.761-61.884,61.884-61.884C247.104,74.736,274.865,102.497,274.865,136.62z"
-                                        data-original="#000000" class="active-path" data-old_color="#000000"
-                                        fill="#FFFFFF" />
+                                    <g>
+                                        <path
+                                            d="M213.285,0h-0.608C139.114,0,79.268,59.826,79.268,133.361c0,48.202,21.952,111.817,65.246,189.081
+                                                c32.098,57.281,64.646,101.152,64.972,101.588c0.906,1.217,2.334,1.934,3.847,1.934c0.043,0,0.087,0,0.13-0.002
+                                                c1.561-0.043,3.002-0.842,3.868-2.143c0.321-0.486,32.637-49.287,64.517-108.976c43.03-80.563,64.848-141.624,64.848-181.482
+                                                C346.693,59.825,286.846,0,213.285,0z M274.865,136.62c0,34.124-27.761,61.884-61.885,61.884
+                                                c-34.123,0-61.884-27.761-61.884-61.884s27.761-61.884,61.884-61.884C247.104,74.736,274.865,102.497,274.865,136.62z"
+                                            data-original="#000000" class="active-path" data-old_color="#000000"
+                                            fill="#FFFFFF" />
+                                    </g>
                                 </g>
-                            </g>
-                        </svg>
-                        {{ current_data.city }}
-                    </p>
-                </div>
-
-                <!-- Container for sunrise and sunset -->
-                <div class="flex items-center my-4">
-                    <div class="flex flex-col items-center"> <!-- Adjust width as needed -->
-                        <img id="sunrise" src="{{ url_for('static', filename='img/weather/sunrise.png') }}"
-                            class="sun-icon w-16">
-                        <p class="text-center opacity-75">{{ weather_data.sunrise }}</p>
+                            </svg>
+                            {{ current_data.city }}
+                        </p>
                     </div>
-                    <div class="flex flex-col items-center"> <!-- Adjust width as needed -->
-                        <img id="sunset" src="{{ url_for('static', filename='img/weather/sunset.png') }}"
-                            class="sun-icon w-16">
-                        <p class="text-center opacity-75">{{ weather_data.sunset }}</p>
+                    <div class="flex flex-col items-center justify-center w-1/2">
+                        <img class="w-16 mb-2" src="http://openweathermap.org/img/wn/{{ current_data.wf_icon }}.png"
+                            class="current-weather-icon">
+                        <b class="text-2xl block font-bold text-center">{{ current_data.wf_description }}</b>
+                        <strong class="leading-none text-6xl block font-weight-bolder text-center">{{ current_data.temp }}ºC</strong>
                     </div>
                 </div>
-
-                <div>
-                    <img class="w-16 mb-2" src="http://openweathermap.org/img/wn/{{ current_data.wf_icon }}.png"
-                        class="current-weather-icon">
-                    <b class="text-2xl block font-bold">{{ current_data.wf_description }}</b>
-                    <strong class="leading-none text-6xl block font-weight-bolder">{{ current_data.temp }}ºC</strong>
+                <div class="flex items-center my-4 justify-center">
+                    <div class="flex flex-col items-center justify-center w-1/2">
+                        <div class="flex items-center justify-center">
+                            <div class="flex flex-col items-center mr-4">
+                                <img id="sunrise" src="{{ url_for('static', filename='img/weather/sunrise.png') }}"
+                                    class="sun-icon w-16">
+                                <p class="text-center opacity-75">{{ weather_data.sunrise }}</p>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <img id="sunset" src="{{ url_for('static', filename='img/weather/sunset.png') }}"
+                                    class="sun-icon w-16">
+                                <p class="text-center opacity-75">{{ weather_data.sunset }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center justify-center w-1/2 mt-10">
+                        <div class="flex justify-between w-64 mb-4 w-full">
+                            <div class="w-auto font-bold uppercase text-90">Humidity</div>
+                            <div class="w-auto text-right">{{ current_data.humidity }} %</div>
+                        </div>
+                        <div class="flex justify-between w-64 mb-8 w-full">
+                            <div class="w-auto font-bold uppercase text-90">Wind</div>
+                            <div class="w-auto text-right">{{ current_data.wind }} m/s</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="w-full lg:w-1/2 flex ml-0">
             <div class="lg:my-3 bg-gray-800 text-white p-8 lg:rounded-r-lg w-full">
-                <div class="flex justify-between w-64 mb-4 w-full">
-                    <div class="w-auto font-bold uppercase text-90">Humidity</div>
-                    <div class="w-auto text-right">{{ current_data.humidity }} %</div>
-                </div>
-                <div class="flex justify-between w-64 mb-8 w-full">
-                    <div class="w-auto font-bold uppercase text-90">Wind</div>
-                    <div class="w-auto text-right">{{ current_data.wind }} m/s</div>
-                </div>
                 <div class="flex flex-row mb-2">
                     {% for forecast in weather_data.forecasts %}
                     <div class="flex flex-col w-1/4 bg-blue-400 text-black rounded-lg pb-4 items-center mr-1">
