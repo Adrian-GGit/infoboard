@@ -1,3 +1,4 @@
+from collections import defaultdict
 import os
 import time
 from flask import abort
@@ -39,11 +40,19 @@ def get_data(url, city):
 
 def get_current_data(url, city):
     weather_data = get_data(url, city)
+    now = datetime.datetime.now()
     return {
+        constants.DATE: now.strftime('%d %b'),
+        constants.DAY: now.strftime("%A"),
+        constants.CITY: weather_data.get('name'),
         constants.TIME: get_system_time(),
         constants.WEATHER_FORECAST_DESCRIPTION: constants.WEATHER_DESCRPITION_MAPPING.get(weather_data.get('weather')[0].get('description'), ''),
         constants.WEATHER_FORECAST_ICON: weather_data.get('weather')[0].get('icon'),
         constants.TEMP: int(weather_data.get('main').get('temp')),
+        constants.TEMP_MIN: int(weather_data.get('main').get('temp_min')),
+        constants.TEMP_MAX: int(weather_data.get('main').get('temp_max')),
+        constants.HUMIDITY: int(weather_data.get('main').get('humidity')),
+        constants.WIND: int(weather_data.get('wind').get('speed')),
     }
 
 
@@ -58,6 +67,7 @@ def get_forecast_data(url, city):
             weather_data.get('city').get('sunset'), time_zone
         ),
         constants.FORECASTS: [],
+        constants.DAILY_FORECASTS: [],
     }
     for i, forecast in enumerate(weather_data.get('list')):
         if i == 8: break
@@ -68,6 +78,15 @@ def get_forecast_data(url, city):
             constants.PROP_PRECIPITATION: int(float(forecast.get('pop')) * 100),
             constants.TEMP: int(forecast.get('main').get('temp')),
         })
+
+    daily_max_temps = defaultdict(lambda: {constants.TEMP: float('-inf'), constants.WEATHER_FORECAST_ICON: None})
+    for forecast in weather_data["list"]:
+        date = datetime.datetime.fromtimestamp(forecast["dt"]).strftime('%a')
+        temp = int(forecast["main"]["temp"])
+        icon = forecast["weather"][0]["icon"]
+        if temp > daily_max_temps[date][constants.TEMP]:
+            daily_max_temps[date] = {constants.TEMP: temp, constants.WEATHER_FORECAST_ICON: icon}
+    specific_weather_data.get(constants.DAILY_FORECASTS).append(dict(daily_max_temps))
 
     return specific_weather_data
 

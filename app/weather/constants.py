@@ -13,6 +13,7 @@ LONGITUDE = 'longitude'
 # weather forecast constants
 TIME = 'time'
 FORECASTS = 'forecasts'
+DAILY_FORECASTS = 'daily_forecasts'
 SUNRISE = 'sunrise'
 SUNSET = 'sunset'
 TEMP_MIN = 'temp_min'
@@ -22,7 +23,11 @@ WEATHER_FORECAST_ID = 'wf_id'
 WEATHER_FORECAST_DESCRIPTION = 'wf_description'
 WEATHER_FORECAST_ICON = 'wf_icon'
 TEMP_FEELS_LIKE = 'temp_fl'
+WIND = 'wind'
+HUMIDITY = 'humidity'
 PROP_PRECIPITATION = 'prop_precip'
+DATE = 'date'
+DAY = 'day'
 
 
 # weather description mappings
