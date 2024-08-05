@@ -72,10 +72,10 @@ def get_forecast_data(url, city):
     for i, forecast in enumerate(weather_data.get('list')):
         if i == 8: break
         specific_weather_data.get(constants.FORECASTS).append({
-            constants.TIME: datetime.datetime.strptime(forecast.get('dt_txt'), '%Y-%m-%d %H:%M:%S').strftime('%-H'),
+            constants.TIME: datetime.datetime.strptime(forecast.get('dt_txt'), '%Y-%m-%d %H:%M:%S').strftime('%H:%M'),
             constants.WEATHER_FORECAST_DESCRIPTION: constants.WEATHER_DESCRPITION_MAPPING.get(forecast.get('weather')[0].get('description'), ''),
             constants.WEATHER_FORECAST_ICON: forecast.get('weather')[0].get('icon'),
-            constants.PROP_PRECIPITATION: int(float(forecast.get('pop')) * 100),
+            constants.PROP_PRECIPITATION: float(forecast.get('pop')),
             constants.TEMP: int(forecast.get('main').get('temp')),
         })
 
