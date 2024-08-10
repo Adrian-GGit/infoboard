@@ -8,14 +8,19 @@
 {% block content %}
 <div class="min-h-screen flex items-center justify-center">
     <div class="flex flex-wrap w-full lg:w-auto">
-        <div class="w-full lg:w-2/5 flex rounded-lg bg-auto"> <!-- Adjusted width to 2/5 -->
-            <div class="rounded-lg py-6 pl-8 pr-32 w-full bg-blue-400 opacity-90 text-white">
-                <div class="flex items-center my-4 justify-center">
+        <div class="w-full lg:w-2/5 flex rounded-lg bg-auto">
+            <div class="rounded-lg py-6 px-8 w-full bg-blue-400 opacity-90 text-white">
+                <!-- Current Date, Time, and City -->
+                <div class="flex items-center justify-between mb-6">
                     <div class="flex flex-col items-center justify-center w-1/2">
-                        <h2 class="font-bold text-3xl leading-none pb-1">{{ current_data.day }}, {{ current_data.date }}
-                        </h2>
-                        <h3 class="font-bold leading-none pb-2 pl-1">{{ current_data.time }}</h3>
-                        <p class="font-bold flex align-center opacity-75">
+                        <img class="w-16 mb-2" src="http://openweathermap.org/img/wn/{{ current_data.wf_icon }}.png"
+                            class="current-weather-icon">
+                        <strong class="leading-none text-6xl block font-weight-bolder text-center">{{ current_data.temp }}ºC</strong>
+                    </div>
+                    <div class="flex flex-col items-center justify-center w-1/2">
+                        <h2 class="font-bold text-3xl leading-none pb-1 text-center">{{ current_data.day }}, {{ current_data.date }}</h2>
+                        <h3 class="font-bold leading-none pb-2 pl-1 text-center">{{ current_data.time }}</h3>
+                        <p class="font-bold flex items-center justify-center opacity-75 text-center">
                             <svg class="w-4 inline mr-1" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
                                 viewBox="0 0 425.963 425.963" style="enable-background:new 0 0 425.963 425.963;"
@@ -36,36 +41,36 @@
                             {{ current_data.city }}
                         </p>
                     </div>
-                    <div class="flex flex-col items-center justify-center w-1/2">
-                        <img class="w-16 mb-2" src="http://openweathermap.org/img/wn/{{ current_data.wf_icon }}.png"
-                            class="current-weather-icon">
-                        <strong class="leading-none text-6xl block font-weight-bolder text-center">{{ current_data.temp
-                            }}ºC</strong>
-                    </div>
                 </div>
-                <div class="flex items-center my-4 justify-center">
-                    <div class="flex flex-col items-center justify-center w-1/2">
+
+                <!-- Sunrise and Sunset -->
+                <div class="flex items-center justify-between my-4">
+                    <div class="flex flex-col items-center justify-center w-full">
                         <div class="flex items-center justify-center">
-                            <div class="flex flex-col items-center mr-4">
+                            <div class="flex flex-col items-center mr-8">
                                 <img id="sunrise" src="{{ url_for('static', filename='img/weather/sunrise.png') }}"
                                     class="sun-icon w-16">
                                 <p class="font-bold text-center opacity-75">{{ weather_data.sunrise }}</p>
                             </div>
-                            <div class="flex flex-col items-center">
+                            <div class="flex flex-col items-center ml-8">
                                 <img id="sunset" src="{{ url_for('static', filename='img/weather/sunset.png') }}"
                                     class="sun-icon w-16">
                                 <p class="font-bold text-center opacity-75">{{ weather_data.sunset }}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-col items-center justify-center w-1/2 mt-10">
-                        <div class="flex justify-between w-64 mb-4 w-full">
-                            <div class="w-auto font-bold uppercase text-90">Humidity</div>
-                            <div class="font-bold w-auto text-right">{{ current_data.humidity }} %</div>
+                </div>
+
+                <!-- Humidity and Wind -->
+                <div class="flex items-center justify-center mt-10">
+                    <div class="flex flex-col items-center justify-center w-full">
+                        <div class="flex justify-between w-full mb-4">
+                            <div class="font-bold uppercase text-left w-auto text-90">Humidity</div>
+                            <div class="font-bold text-right w-auto">{{ current_data.humidity }} %</div>
                         </div>
-                        <div class="flex justify-between w-64 mb-8 w-full">
-                            <div class="w-auto font-bold uppercase text-90">Wind</div>
-                            <div class="font-bold w-auto text-right">{{ current_data.wind }} m/s</div>
+                        <div class="flex justify-between w-full mb-8">
+                            <div class="font-bold uppercase text-left w-auto text-90">Wind</div>
+                            <div class="font-bold text-right w-auto">{{ current_data.wind }} m/s</div>
                         </div>
                     </div>
                 </div>
@@ -82,7 +87,6 @@
                                 class="current-weather-icon">
                             <b class="font-normal">{{ forecast.time }}</b><br>
                             <strong class="text-xl">{{ forecast.temp }}ºC</strong><br>
-                            <strong class="text-xl">{{ forecast.prop_precip }}</strong><br>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                 <defs>
                                     <!-- Unique IDs based on the forecast time or index -->

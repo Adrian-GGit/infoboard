@@ -1,3 +1,4 @@
+- make icon and temp in little circle
 - fix water drop filled state animation
     => due to jinja2 the animation is set in the background
 - add animated gifs for each weather
