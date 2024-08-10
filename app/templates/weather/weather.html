@@ -12,7 +12,8 @@
             <div class="rounded-lg py-6 pl-8 pr-32 w-full bg-blue-400 opacity-90 text-white">
                 <div class="flex items-center my-4 justify-center">
                     <div class="flex flex-col items-center justify-center w-1/2">
-                        <h2 class="font-bold text-3xl leading-none pb-1">{{ current_data.day }}, {{ current_data.date }}</h2>
+                        <h2 class="font-bold text-3xl leading-none pb-1">{{ current_data.day }}, {{ current_data.date }}
+                        </h2>
                         <h3 class="font-bold leading-none pb-2 pl-1">{{ current_data.time }}</h3>
                         <p class="font-bold flex align-center opacity-75">
                             <svg class="w-4 inline mr-1" xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +28,8 @@
                                                 c1.561-0.043,3.002-0.842,3.868-2.143c0.321-0.486,32.637-49.287,64.517-108.976c43.03-80.563,64.848-141.624,64.848-181.482
                                                 C346.693,59.825,286.846,0,213.285,0z M274.865,136.62c0,34.124-27.761,61.884-61.885,61.884
                                                 c-34.123,0-61.884-27.761-61.884-61.884s27.761-61.884,61.884-61.884C247.104,74.736,274.865,102.497,274.865,136.62z"
-                                            data-original="#000000" class="active-path" data-old_color="#000000" fill="#FFFFFF" />
+                                            data-original="#000000" class="active-path" data-old_color="#000000"
+                                            fill="#FFFFFF" />
                                     </g>
                                 </g>
                             </svg>
@@ -35,20 +37,23 @@
                         </p>
                     </div>
                     <div class="flex flex-col items-center justify-center w-1/2">
-                        <img class="w-16 mb-2" src="http://openweathermap.org/img/wn/{{ current_data.wf_icon }}.png" class="current-weather-icon">
-                        <b class="text-2xl block font-bold text-center">{{ current_data.wf_description }}</b>
-                        <strong class="leading-none text-6xl block font-weight-bolder text-center">{{ current_data.temp }}ºC</strong>
+                        <img class="w-16 mb-2" src="http://openweathermap.org/img/wn/{{ current_data.wf_icon }}.png"
+                            class="current-weather-icon">
+                        <strong class="leading-none text-6xl block font-weight-bolder text-center">{{ current_data.temp
+                            }}ºC</strong>
                     </div>
                 </div>
                 <div class="flex items-center my-4 justify-center">
                     <div class="flex flex-col items-center justify-center w-1/2">
                         <div class="flex items-center justify-center">
                             <div class="flex flex-col items-center mr-4">
-                                <img id="sunrise" src="{{ url_for('static', filename='img/weather/sunrise.png') }}" class="sun-icon w-16">
+                                <img id="sunrise" src="{{ url_for('static', filename='img/weather/sunrise.png') }}"
+                                    class="sun-icon w-16">
                                 <p class="font-bold text-center opacity-75">{{ weather_data.sunrise }}</p>
                             </div>
                             <div class="flex flex-col items-center">
-                                <img id="sunset" src="{{ url_for('static', filename='img/weather/sunset.png') }}" class="sun-icon w-16">
+                                <img id="sunset" src="{{ url_for('static', filename='img/weather/sunset.png') }}"
+                                    class="sun-icon w-16">
                                 <p class="font-bold text-center opacity-75">{{ weather_data.sunset }}</p>
                             </div>
                         </div>
@@ -73,36 +78,41 @@
                     {% for forecast in weather_data.forecasts %}
                     <div class="flex flex-col w-1/4 bg-blue-400 text-black rounded-lg pb-4 items-center mr-1">
                         <div class="text-center">
-                            <img class="w-16 mb-2" src="http://openweathermap.org/img/wn/{{ forecast.wf_icon }}.png" class="current-weather-icon">
+                            <img class="w-16 mb-2" src="http://openweathermap.org/img/wn/{{ forecast.wf_icon }}.png"
+                                class="current-weather-icon">
                             <b class="font-normal">{{ forecast.time }}</b><br>
                             <strong class="text-xl">{{ forecast.temp }}ºC</strong><br>
+                            <strong class="text-xl">{{ forecast.prop_precip }}</strong><br>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                 <defs>
-                                    <linearGradient id="IconifyId19124294994ed665d0" x1="310.5" x2="425.5" y1="152.5"
+                                    <!-- Unique IDs based on the forecast time or index -->
+                                    {% set uniqueId = forecast.time.replace(' ', '_') %}
+                                    <linearGradient id="gradient_{{ uniqueId }}" x1="310.5" x2="425.5" y1="152.5"
                                         y2="351.5" gradientUnits="userSpaceOnUse">
                                         <stop offset="0" stop-color="#d4d7dd" />
                                         <stop offset=".5" stop-color="#d4d7dd" />
                                         <stop offset="1" stop-color="#bec1c6" />
                                     </linearGradient>
-                                    <clipPath id="IconifyId19124294994ed665d1">
+                                    <clipPath id="clipPath_{{ uniqueId }}">
                                         <path fill="none">
-                                            <animate attributeName="d" calcMode="spline" dur="{{ 1.5 + ((1 - forecast.prop_precip) * 1.5) }}s"
+                                            <animate attributeName="d" calcMode="spline"
+                                                dur="{{ 1.5 + ((1 - forecast.prop_precip) * 1.5) }}s"
                                                 keySplines=".42, 0, .58, 1; .42, 0, .58, 1" repeatCount="indefinite"
                                                 values="M168,370H344V380H168Z; M168,{{ 370 - ((370 - 130) * forecast.prop_precip) }}H344V380H168Z; M168,370H344V380H168Z" />
                                         </path>
                                     </clipPath>
-                                    <symbol id="IconifyId19124294994ed665d2" viewBox="0 0 175 260.9">
+                                    <symbol id="symbol_{{ uniqueId }}" viewBox="0 0 175 260.9">
                                         <path fill="none" stroke="#2885c7" stroke-miterlimit="10" stroke-width="15"
                                             d="M87.5 13.4c-48.7 72-80 117-80 160.7s35.8 79.3 80 79.3s80-35.5 80-79.3s-31.3-88.8-80-160.7Z" />
                                     </symbol>
                                 </defs>
                                 <path fill="none" stroke="#e2e8f0" stroke-miterlimit="10" stroke-width="15"
                                     d="M256 132c-48.7 72-80 117-80 160.8s35.8 79.2 80 79.2s80-35.5 80-79.3S304.7 204 256 132Z" />
-                                <path fill="none" stroke="url(#IconifyId19124294994ed665d0)" stroke-linecap="round"
+                                <path fill="none" stroke="url(#gradient_{{ uniqueId }})" stroke-linecap="round"
                                     stroke-linejoin="round" stroke-width="6"
                                     d="M352 132h32v240h-32m8-120h24m-16 56h16m-16-120h16" />
-                                <g clip-path="url(#IconifyId19124294994ed665d1)">
-                                    <use width="175" height="260.9" href="#IconifyId19124294994ed665d2"
+                                <g clip-path="url(#clipPath_{{ uniqueId }})">
+                                    <use width="175" height="260.9" href="#symbol_{{ uniqueId }}"
                                         transform="translate(168.61 119.2)" />
                                 </g>
                             </svg>
@@ -116,7 +126,8 @@
                     {% if loop.index > 1 %}
                     <div class="flex flex-col w-1/4 bg-gray-500 text-black rounded-lg pb-4 items-center mr-1">
                         <div class="text-center">
-                            <img class="w-16 mb-2" src="http://openweathermap.org/img/wn/{{ details.wf_icon }}.png" class="current-weather-icon">
+                            <img class="w-16 mb-2" src="http://openweathermap.org/img/wn/{{ details.wf_icon }}.png"
+                                class="current-weather-icon">
                             <b class="font-normal">{{ day }}</b><br>
                             <strong class="text-xl">{{ details.temp }}ºC</strong>
                         </div>

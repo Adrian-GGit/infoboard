@@ -1,5 +1,6 @@
 from collections import defaultdict
 import os
+import random
 import time
 from flask import abort
 import requests
@@ -75,7 +76,8 @@ def get_forecast_data(url, city):
             constants.TIME: datetime.datetime.strptime(forecast.get('dt_txt'), '%Y-%m-%d %H:%M:%S').strftime('%H:%M'),
             constants.WEATHER_FORECAST_DESCRIPTION: constants.WEATHER_DESCRPITION_MAPPING.get(forecast.get('weather')[0].get('description'), ''),
             constants.WEATHER_FORECAST_ICON: forecast.get('weather')[0].get('icon'),
-            constants.PROP_PRECIPITATION: float(forecast.get('pop')),
+            constants.PROP_PRECIPITATION: round(random.random(), 2),
+            # constants.PROP_PRECIPITATION: float(forecast.get('pop')),
             constants.TEMP: int(forecast.get('main').get('temp')),
         })
 
