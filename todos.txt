@@ -1,18 +1,4 @@
-- dynamic updates with JS every 5min but without reloading the whole page (e.g. with apscheduler)
-    => just update the elements itself
-    => add more endpoints for querying
-- add animated gifs for each weather
-- Weather cards chaning color the darker the weather cast
-- generate weather pngs with AI
-- instead of text color with contrast use background image of weather for each box individually having one nice background color
-    => change background color dynamically to the current weather with fitting text color having the highest contrast
-    => text color adaptive to background for better readability
-    => add unique background for each forecast
-- add more jpgs for weather mappings
-- integrate vue.js for learning and better FE
-- clothing and util recommendations
-    - sunglasses
-    - cap
-    - rain trousers + jacket
-    - insect spray
-- setup wsgi with gunicorn
+- Fetch google calender todays dates
+- Fetch notion tasks
+- dockerize
+    - setup wsgi with gunicorn

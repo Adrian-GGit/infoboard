@@ -1,3 +1,8 @@
+# URIs
+FORECAST_API = 'https://api.openweathermap.org/data/2.5/forecast?lat={}&lon={}&appid={}&units=metric'
+CURRENT_API = 'https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}&units=metric'
+WEATHER_ICON_URL = 'https://openweathermap.org/img/w/{}.png'
+
 # weather coords constants
 API_KEY_ENV_VAR = 'OPENWEATHER_API_KEY'
 API_KEY_MISSING = 'Missing weather API key'

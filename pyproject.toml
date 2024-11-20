@@ -8,9 +8,9 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 Flask = "^3.0.3"
-geopy = "^2.4.1"
 pytz = "^2024.1"
 requests = "^2.32.3"
+geocoder = "^1.38.1"
 
 
 [build-system]

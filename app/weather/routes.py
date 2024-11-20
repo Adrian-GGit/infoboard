@@ -1,28 +1,17 @@
 import json
-from flask import abort, render_template, request
+from app.weather.weather_info import WeatherInfo
+from flask import render_template
 from app.main import bp
 from app.weather import constants
 import logging
 
-from app.weather.helper import get_current_data, get_forecast_data
-
 logger = logging.getLogger(__name__)
-
-
-FORECAST_API = 'https://api.openweathermap.org/data/2.5/forecast?lat={}&lon={}&appid={}&units=metric'
-CURRENT_API = 'https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}&units=metric'
-WEATHER_ICON_URL = 'https://openweathermap.org/img/w/{}.png'
-CITY = 'Karlsruhe'
 
 
 @bp.route('/forecast', methods=['GET'])
 def get_weather():
-    city = request.args.get(constants.CITY, CITY)
-    if city is None:
-        abort(400, constants.CITY_MISSING)
-
-    current_data = get_current_data(CURRENT_API, city)
-    forecast_data = get_forecast_data(FORECAST_API, city)
+    weather_info = WeatherInfo()
+    current_data, forecast_data = weather_info.get_weather_info()
     return render_template(
         'weather/weather.html',
         weather_data=forecast_data,

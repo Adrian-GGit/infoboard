@@ -8,13 +8,12 @@ Setup for backend executing in root dir:
 poetry install
 ```
 
-Setup for frontend executing in root dir:
-```
-npm install
-```
-
 
 # Start
+Get into poetry shell:
+```
+poetry shell
+```
 Execute in root dir:
 ```
 flask --app app run
