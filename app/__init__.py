@@ -1,14 +1,17 @@
+import os
 from flask import Flask
 from app.main import bp as main_bp
 from app.weather import bp as weather_bp
-from config import Config
+from config import Config, DevelopmentConfig
 import logging
 
 
-
-def create_app(config_class=Config):
+def create_app():
     app = Flask(__name__)
-    app.config.from_object(config_class)
+    if os.getenv('FLASK_ENV') == 'test':
+        app.config.from_object(DevelopmentConfig)
+    else:
+        app.config.from_object(Config)
 
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
