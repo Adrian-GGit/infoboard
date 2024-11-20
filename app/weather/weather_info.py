@@ -58,7 +58,6 @@ class WeatherInfo:
             constants.DAY: now.strftime("%A"),
             constants.CITY: weather_data.get('name'),
             constants.TIME: get_system_time(),
-            constants.WEATHER_FORECAST_DESCRIPTION: constants.WEATHER_DESCRPITION_MAPPING.get(weather_data.get('weather')[0].get('description'), ''),
             constants.WEATHER_FORECAST_ICON: weather_data.get('weather')[0].get('icon'),
             constants.TEMP: int(weather_data.get('main').get('temp')),
             constants.TEMP_MIN: int(weather_data.get('main').get('temp_min')),
@@ -85,7 +84,6 @@ class WeatherInfo:
             if i == 8: break
             specific_weather_data.get(constants.FORECASTS).append({
                 constants.TIME: datetime.datetime.strptime(forecast.get('dt_txt'), '%Y-%m-%d %H:%M:%S').strftime('%H:%M'),
-                constants.WEATHER_FORECAST_DESCRIPTION: constants.WEATHER_DESCRPITION_MAPPING.get(forecast.get('weather')[0].get('description'), ''),
                 constants.WEATHER_FORECAST_ICON: forecast.get('weather')[0].get('icon'),
                 constants.PROP_PRECIPITATION: float(forecast.get('pop')),
                 constants.TEMP: int(forecast.get('main').get('temp')),
