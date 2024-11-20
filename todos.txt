@@ -1,4 +1,0 @@
-- Fetch google calender todays dates
-- Fetch notion tasks
-- dockerize
-    - setup wsgi with gunicorn

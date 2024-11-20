@@ -2,7 +2,7 @@ import os
 from flask import Flask
 from app.main import bp as main_bp
 from app.weather import bp as weather_bp
-from config import Config, DevelopmentConfig
+from app.config import Config, DevelopmentConfig
 import logging
 
 
